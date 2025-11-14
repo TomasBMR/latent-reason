@@ -77,7 +77,7 @@ class BetaVAECriterion(BaseCriterion):
             return {"loss": rec, "loss/recon": rec, "loss/kld": z}
         
         if self.semisuper.enabled:
-            semisupervised_loss = self.semisuper(ctx["mu"], ctx["logvar"], target["labels"], target["is_labeld"])
+            semisupervised_loss = self.semisuper(ctx["mu"], target["labels"], target["is_labeld"])
 
         kld = self._kld(ctx["mu"], ctx["logvar"], ctx.get("free_n", 0.0))
         total = rec + self.beta * kld + semisupervised_loss
